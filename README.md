@@ -144,7 +144,7 @@ If you are modifying this package and want changes to apply when running the inc
 changes you'll need to run the following command:
 
 ```sh
-npm run build
+npm run localDeploy
 ```
 
 ### Contribute
