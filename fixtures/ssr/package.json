@@ -1,0 +1,35 @@
+{
+  "name": "react-fixtures-ssr",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "babel-preset-react-app": "^3.1.0",
+    "concurrently": "3.1.0",
+    "http-proxy-middleware": "0.17.3",
+    "prop-types": "^15.6.0",
+    "react-scripts": "0.9.5"
+  },
+  "dependencies": {
+    "exenv": "^1.2.2",
+    "express": "^4.14.0",
+    "ignore-styles": "^5.0.1",
+    "import-export": "^1.0.1",
+    "invariant": "^2.2.2",
+    "node-fetch": "^1.6.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-config": "^1.0.0-beta.4",
+    "react-router-dispatcher": "^2.0.0-beta.10",
+    "react-router-dom": "^4.2.2"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:client": "PORT=3001 react-scripts start",
+    "start:server": "NODE_ENV=development node server",
+    "start:prod": "react-scripts build && NODE_ENV=production node server",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
