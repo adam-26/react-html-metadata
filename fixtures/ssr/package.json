@@ -20,7 +20,7 @@
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
-    "react-router-dispatcher": "^2.0.0-beta.10",
+    "react-router-dispatcher": "^2.0.0-beta.11",
     "react-router-dom": "^4.2.2"
   },
   "scripts": {

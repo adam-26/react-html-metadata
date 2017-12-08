@@ -3,17 +3,14 @@ import HtmlTag from './HtmlTag';
 import HeadTag from './HeadTag';
 import BodyTag from './BodyTag';
 import Metadata from './Metadata';
-import withMetadata, { metadataDispatcherActionName } from './withMetadata';
-import hydrateMetadata from './hydrateMetadata';
+import withMetadata from './withMetadata';
 
 export {
     HtmlTag,
     HeadTag,
     BodyTag,
     Metadata,
-    withMetadata,
-    hydrateMetadata,
-    metadataDispatcherActionName
+    withMetadata
 };
 
 export default Html;

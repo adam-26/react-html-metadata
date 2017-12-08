@@ -1,11 +1,23 @@
-# react-router-dispatcher
+# react-html-metadata
 
+TODO - update circleCI config; CC_TEST_REPORTER_ID
+TODO - rename 'fixtures' -> 'example' AND be sure to clean up code, remove comments (inc. notes in example README).
+     - modify example to have server EMBED the metadata 'state' in the page for client-render, add notes about react-router version.
+TODO - add notes to THIS readme about 'npm run copy' usage for dev purposes with the example.
+     - add notes about including md in 'Metadata.createNew({... here ....});'
+
+TODO: Update links used here
 [![npm](https://img.shields.io/npm/v/react-router-dispatcher.svg)](https://www.npmjs.com/package/react-router-dispatcher)
 [![npm](https://img.shields.io/npm/dm/react-router-dispatcher.svg)](https://www.npmjs.com/package/react-router-dispatcher)
 [![CircleCI branch](https://img.shields.io/circleci/project/github/adam-26/react-router-dispatcher/master.svg)](https://circleci.com/gh/adam-26/react-router-dispatcher/tree/master)
 [![Code Climate](https://img.shields.io/codeclimate/coverage/github/adam-26/react-router-dispatcher.svg)](https://codeclimate.com/github/adam-26/react-router-dispatcher)
 [![Code Climate](https://img.shields.io/codeclimate/github/adam-26/react-router-dispatcher.svg)](https://codeclimate.com/github/adam-26/react-router-dispatcher)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
+TODO: Add issue - refine ORDERING of components in the <HeadTag />
+TODO: Add issue - Add support to DIFF the previous/new metadata instances
+
+TODO: Add notes about internal usage of react-helmet (via react-cap, that removes data-react-helmet attr usage, internal API)
 
 react-router-dispatcher is designed to work with [react-router v4.x](https://github.com/ReactTraining/react-router), it:
   * invokes static methods of _route components_ before rendering

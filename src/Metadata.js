@@ -13,11 +13,12 @@ export default class Metadata {
     /**
      * Create a new metadata instance.
      *
+     * @param md [Object] optionally, assign initial metadata
      * @returns {Metadata}
      * @public
      */
-    static createNew() {
-        return new Metadata(false);
+    static createNew(md?: Object) {
+        return new Metadata(false, typeof md !== 'undefined' ? [md] : []);
     }
 
     /**
@@ -44,6 +45,7 @@ export default class Metadata {
 
         this._isHydratingClient = isHydrating;
         this._metadataList = state.slice();
+        this._baseMetadataLen = state.length;
         this._hydrationMark = -1;
     }
 
@@ -60,7 +62,9 @@ export default class Metadata {
     }
 
     markHydrated(): void {
-        this._hydrationMark = this._metadataList.length > 0 ? this._metadataList.length - 1 : -1;
+        if (this._metadataList.length > 0) {
+            this._hydrationMark = this._metadataList.length - this._baseMetadataLen;
+        }
     }
 
     isMounted() {
@@ -68,9 +72,9 @@ export default class Metadata {
             // prevents re-loading data on initial client render when data was rendered on server
             this._isHydratingClient = false;
 
-            if (this._hydrationMark > -1) {
+            if (this._hydrationMark > 0) { // TODO: TEST
                 // Delete any hydrated metadata entries after the initial render is complete
-                this._metadataList.splice(0, this._hydrationMark);
+                this._metadataList.splice(this._baseMetadataLen, this._hydrationMark);
                 this._hydrationMark = -1;
             }
 
@@ -103,7 +107,7 @@ export default class Metadata {
 
         if (this.isHydratingClient()) {
             // append the metadata - will be applied once initial render is complete
-            this.appendMetadata(newMetadata); // todo; add to special-collection? or... mark INDEX of first entry
+            this.appendMetadata(newMetadata);
             return;
         }
 

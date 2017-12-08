@@ -1,12 +1,9 @@
 # SSR Fixtures
 
-TODO: proof required - caching <head> markup using this approach
-                     - how are the HTML attribute handled in this scenario?
-TODO: react-html-metadata, refactor to remove all refs to react-router*
+TODO: proof required - caching <head> markup using this approach, Done. Remove before publishing example.
+TODO: react-html-metadata, refactor to remove all refs to react-router* - update docs, add tests
 TODO: Add tests for THIS pkg
-TODO: Add additional tests for react-router-dispatcher
-      - change 'dispatchOnServer' 1st param name to 'path(name)'
-      - remove WARNING from packages readme file
+TODO: react-router-dispatcher, remove BETA tag from 'standard-version'
 TODO: Convert to project approach that allows for layouts and handles children correctly - it should be its OWN PKG
       -> Publish it as its own package??? Its NOT necessary right now.
 TODO: react-cap, post comment to issue(s) discussing removing the data-react-helmet attrs.

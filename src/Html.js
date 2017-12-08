@@ -7,6 +7,8 @@ import HtmlTag from './HtmlTag';
 import HeadTag from './HeadTag';
 import BodyTag from './BodyTag';
 
+export const METADATA_CONTEXT_KEY = 'htmlMetadata';
+
 export default class Html extends Component {
 
     static propTypes = {
@@ -38,7 +40,7 @@ export default class Html extends Component {
     };
 
     static childContextTypes = {
-        htmlMetadata: PropTypes.object
+        [METADATA_CONTEXT_KEY]: PropTypes.object
     };
 
     constructor(props, context) {
@@ -54,7 +56,7 @@ export default class Html extends Component {
 
     getChildContext() {
         return {
-            htmlMetadata: this.state.metadata
+            [METADATA_CONTEXT_KEY]: this.state.metadata
         };
     }
 

@@ -14,9 +14,9 @@ export default class HeadTag extends Component {
 
         return (
             <head>
+                {meta}
                 {title}
                 {base}
-                {meta}
                 {link}
                 {style}
                 {noscript}
