@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.1"></a>
+## 1.0.1 (2017-12-08)
+
+
+### Bug Fixes
+
+* **deploy:** Force deployment ([75a087c](https://github.com/adam-26/react-html-metadata/commit/75a087c))
+* **deploy:** Initial deployment ([61f35ff](https://github.com/adam-26/react-html-metadata/commit/61f35ff))
+* **deploy:** NPM ([84cf4a1](https://github.com/adam-26/react-html-metadata/commit/84cf4a1))
+* **deploy:** NPM ([5ae9d55](https://github.com/adam-26/react-html-metadata/commit/5ae9d55))
+* **deploy:** NPM ([b378de5](https://github.com/adam-26/react-html-metadata/commit/b378de5))
+
+
+
 <a name="2.0.0-beta.1"></a>
 # [2.0.0-beta.1](https://github.com/adam-26/react-router-dispatcher/compare/v1.0.0-beta.18...v2.0.0-beta.1) (2017-12-04)
 
