@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/adam-26/react-html-metadata/compare/v1.0.1...v1.0.2) (2017-12-08)
+
+
+### Bug Fixes
+
+* **build:** code climate ([2ff1785](https://github.com/adam-26/react-html-metadata/commit/2ff1785))
+* **build:** code climate ([aa5bcdf](https://github.com/adam-26/react-html-metadata/commit/aa5bcdf))
+
+
+
 <a name="1.0.1"></a>
 ## 1.0.1 (2017-12-08)
 
