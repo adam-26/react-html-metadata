@@ -6,7 +6,7 @@ version: 2
 jobs:
   build:
     environment:
-      CC_TEST_REPORTER_ID: b2aae2309fb7d6fa3267296f58253dbf8b3cde3d03afe8479c7b7e9ecd36609e
+      CC_TEST_REPORTER_ID: 57c07494b11311d4a8b2668760c9fbf4123c5eb8b2c8abb5936e2189faf836ed
     docker:
       - image: node:8.4
     working_directory: ~/react-html-metadata
