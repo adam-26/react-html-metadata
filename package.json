@@ -1,6 +1,6 @@
 {
   "name": "react-html-metadata",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "description": "react HTML document template supporting metadata",
   "main": "lib/index.js",
   "engines": {
@@ -9,13 +9,13 @@
   "repository": "git+ssh://git@github.com/adam-26/react-html-metadata.git",
   "scripts": {
     "build": "rm -rf ./lib; NODE_ENV=production babel ./src -d lib --ignore '__tests__'",
+    "postbuild": "npm run copy",
     "lint": "eslint ./src",
     "ci-jest": "TEST_REPORT_PATH=./.build/test jest --ci --coverage --coverageDirectory ./.build/coverage --testResultsProcessor='./node_modules/jest-junit-reporter'",
     "ci-lint": "eslint ./src --format junit --output-file ./.build/lint/eslint.xml",
     "pretest": "npm run lint",
     "test": "jest",
-    "precopy": "npm run build",
-    "copy": "rm -rf ./fixtures/ssr/node_modules/react-html-metadata && mkdir ./fixtures/ssr/node_modules/react-html-metadata && cp ./package.json ./fixtures/ssr/node_modules/react-html-metadata/package.json && cp -r ./lib ./fixtures/ssr/node_modules/react-html-metadata"
+    "copy": "rm -rf ./examples/ssr/node_modules/react-html-metadata && mkdir ./examples/ssr/node_modules/react-html-metadata && cp ./package.json ./examples/ssr/node_modules/react-html-metadata/package.json && cp -r ./lib ./examples/ssr/node_modules/react-html-metadata"
   },
   "keywords": [
     "react",

@@ -46,7 +46,7 @@ export default class Html extends Component {
     constructor(props, context) {
         super(props, context);
         const { metadata } = props;
-        if (typeof metadata !== 'undefined') {
+        if (typeof metadata !== 'undefined' && metadata.isHydratingClient()) {
             invariant(metadata instanceof Metadata, 'Html expects prop \'metadata\' to be an instance of \'Metadata\'.');
             metadata.markHydrated();
         }

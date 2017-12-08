@@ -10,6 +10,7 @@ export default class AppScripts extends Component {
     static propTypes = {
         hydrateClient: PropTypes.bool,
         assets: PropTypes.object.isRequired,
+        metadata: PropTypes.object,
         children: PropTypes.oneOfType([
             PropTypes.node,
             PropTypes.arrayOf(PropTypes.node)
@@ -22,7 +23,9 @@ export default class AppScripts extends Component {
     };
 
     render() {
-        const { assets, hydrateClient, children } = this.props;
+        const { assets, metadata, hydrateClient, children } = this.props;
+        const mdState = (metadata && metadata.getState()) || [];
+
         return (
             <React.Fragment>
                 <noscript
@@ -33,7 +36,7 @@ export default class AppScripts extends Component {
                 {children}
                 <script
                     dangerouslySetInnerHTML={{
-                        __html: `__AppState = ${JSON.stringify({ assets, hydrateClient })};`,
+                        __html: `__AppState = ${JSON.stringify({ assets, hydrateClient, metadata: mdState })};`,
                     }}
                 />
                 <script src={assets['main.js']} />

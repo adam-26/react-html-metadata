@@ -1,13 +1,17 @@
 // @flow
 import ExecutionEnvironment from 'exenv';
 import invariant from 'invariant';
-import { reducePropsToState, handleClientStateChange, mapStateToComponents } from 'react-cap/lib/CapUtils';
+import {
+    reducePropsToState,
+    handleClientStateChange,
+    mapStateToComponents
+} from 'react-cap/lib/CapUtils';
 
 export default class Metadata {
     _metadataList: Array<Object>;
     _isHydratingClient: boolean;
 
-    // Expose canUseDOM so tests can monkeypatch it
+    // Expose for testing
     static canUseDOM = ExecutionEnvironment.canUseDOM;
 
     /**
@@ -45,7 +49,7 @@ export default class Metadata {
 
         this._isHydratingClient = isHydrating;
         this._metadataList = state.slice();
-        this._baseMetadataLen = state.length;
+        // this._baseMetadataIdx = 0;
         this._hydrationMark = -1;
     }
 
@@ -62,8 +66,8 @@ export default class Metadata {
     }
 
     markHydrated(): void {
-        if (this._metadataList.length > 0) {
-            this._hydrationMark = this._metadataList.length - this._baseMetadataLen;
+        if (this._metadataList.length > 0 && this._hydrationMark === -1) {
+            this._hydrationMark = this._metadataList.length;
         }
     }
 
@@ -72,13 +76,13 @@ export default class Metadata {
             // prevents re-loading data on initial client render when data was rendered on server
             this._isHydratingClient = false;
 
-            if (this._hydrationMark > 0) { // TODO: TEST
+            if (this._hydrationMark > 0) {
                 // Delete any hydrated metadata entries after the initial render is complete
-                this._metadataList.splice(this._baseMetadataLen, this._hydrationMark);
-                this._hydrationMark = -1;
+                this._metadataList.splice(this._hydrationMark, this._metadataList.length - this._hydrationMark);
             }
 
             // update the metadata - this should resolve to the initial server render
+            this._hydrationMark = -1;
             this.updateMetadata();
         }
     }

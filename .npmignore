@@ -8,6 +8,7 @@ docs/
 src/
 .build/
 coverage/
+examples/
 jest_*/
 .codeclimate.yml
 npm-shrinkwrap.json

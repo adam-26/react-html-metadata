@@ -34,21 +34,9 @@ if (process.env.NODE_ENV === 'development') {
         const render = require('./render');
         renderRequest(render, req, res);
     });
-    app.get('/about', function(req, res) {
-        // In development mode we clear the module cache between each request to
-        // get automatic hot reloading.
-        for (var key in require.cache) {
-            delete require.cache[key];
-        }
-        const render = require('./render');
-        renderRequest(render, req, res);
-    });
 } else {
     const render = require('./render');
     app.get('/', function(req, res) {
-        renderRequest(render, req, res);
-    });
-    app.get('/about', function(req, res) {
         renderRequest(render, req, res);
     });
 }

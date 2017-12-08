@@ -1,145 +1,154 @@
 # react-html-metadata
 
-TODO - update circleCI config; CC_TEST_REPORTER_ID
-TODO - rename 'fixtures' -> 'example' AND be sure to clean up code, remove comments (inc. notes in example README).
-     - modify example to have server EMBED the metadata 'state' in the page for client-render, add notes about react-router version.
-TODO - add notes to THIS readme about 'npm run copy' usage for dev purposes with the example.
-     - add notes about including md in 'Metadata.createNew({... here ....});'
-
-TODO: Update links used here
-[![npm](https://img.shields.io/npm/v/react-router-dispatcher.svg)](https://www.npmjs.com/package/react-router-dispatcher)
-[![npm](https://img.shields.io/npm/dm/react-router-dispatcher.svg)](https://www.npmjs.com/package/react-router-dispatcher)
-[![CircleCI branch](https://img.shields.io/circleci/project/github/adam-26/react-router-dispatcher/master.svg)](https://circleci.com/gh/adam-26/react-router-dispatcher/tree/master)
-[![Code Climate](https://img.shields.io/codeclimate/coverage/github/adam-26/react-router-dispatcher.svg)](https://codeclimate.com/github/adam-26/react-router-dispatcher)
-[![Code Climate](https://img.shields.io/codeclimate/github/adam-26/react-router-dispatcher.svg)](https://codeclimate.com/github/adam-26/react-router-dispatcher)
+[![npm](https://img.shields.io/npm/v/react-html-metadata.svg)](https://www.npmjs.com/package/react-html-metadata)
+[![npm](https://img.shields.io/npm/dm/react-html-metadata.svg)](https://www.npmjs.com/package/react-html-metadata)
+[![CircleCI branch](https://img.shields.io/circleci/project/github/adam-26/react-html-metadata/master.svg)](https://circleci.com/gh/adam-26/react-html-metadata/tree/master)
+[![Code Climate](https://img.shields.io/codeclimate/coverage/github/adam-26/react-html-metadata.svg)](https://codeclimate.com/github/adam-26/react-html-metadata)
+[![Code Climate](https://img.shields.io/codeclimate/github/adam-26/react-html-metadata.svg)](https://codeclimate.com/github/adam-26/react-html-metadata)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
-TODO: Add issue - refine ORDERING of components in the <HeadTag />
-TODO: Add issue - Add support to DIFF the previous/new metadata instances
+### Introduction
+This package provides a simple HTML template that supports metadata.
 
-TODO: Add notes about internal usage of react-helmet (via react-cap, that removes data-react-helmet attr usage, internal API)
+In isolation, this package is rather boring. However, this package provides the basis for implementing components that support SSR stream interface with HTML metadata.
 
-react-router-dispatcher is designed to work with [react-router v4.x](https://github.com/ReactTraining/react-router), it:
-  * invokes static methods of _route components_ before rendering
-  * requires using [react-router-config v4.x](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config) route configuration
-  * supports server-side rendering.
-
-#### Looking for **version 1.x**??
->[You can find it on the _V1_ branch](https://github.com/adam-26/react-router-dispatcher/tree/v1).
-Version 2 has been simplified and **no longer requires [redux](redux.js.org)**
-
+You can see [one example of using **react-router v4 with streams and metadata** here](https://github.com/adam-26/react-router-metadata).
 
 ### Install
 ```sh
 // npm
-npm install --save react-router-dispatcher
+npm install --save react-html-metadata
 
 // yarn
-yarn add react-router-dispatcher
+yarn add react-html-metadata
 ```
+
+Internally, this package uses a slightly modified version of the excellent [react-helmet](https://github.com/nfl/react-helmet)
+to apply metadata. The modified version is [react-cap](https://github.com/adam-26/react-cap), and it differs in that
+it **does not use _data-react-helmet_ attributes**, instead it requires you to apply a `data-ignore-metadata` attribute
+if you include any metadata in the render that does not use [react-cap](https://github.com/adam-26/react-cap).
 
 ### Usage
 
-##### server-side rendering
-
-If your building a universal application, use the `createRouteDispatcher` factory method to
-create the `<RouteDispatcher>` component that is used to render on **both** the server and client.
-
 ```js
-import { createRouteDispatcher } from 'react-router-dispatcher';
+// Complete list of exports
+import Html, { Metadata, withMetadata, HtmlTag, HeadTag, BodyTag } from 'react-html-metadata';
 
-// === Params ===
-// The current request url, for expressjs use request.url
-const location = request.url;
-// route configuration, using react-router-config configuration
-const routes = [...];
-const options = {
-  // static method(s) to invoke - defaults to 'loadData'
-  dispatchActions: [['loadData']],
-  // passed to all static action methods
-  helpers: { apiClient }
-};
-
-// Use the createRouteDispatcher factory, it returns a component and method for server-side rendering
-const { RouteDispatcher, dispatchOnServer } = createRouteDispatcher(location, routes, options);
-
-dispatchOnServer().then(() => {
-  // render your application here
-  // Use the <RouteDispatcher /> component created by the factory method to render your app,
-  // this <RouteDispatcher /> will NOT invoke static action methods on initial load on the client
+const metadata = Metadata.createNew({
+  title: 'Html Metadata Demo',
+  htmlAttributes: { lang: 'en' },
+  bodyAttributes: { className: 'root' },
+  meta: [
+    { charset: 'utf-8' }
+  ],
+  link: [
+    { rel: 'stylesheet', href: '/static/css/app.css' }
+  ]
 });
 
-```
+class DemoApp extends React.Component {
 
-##### client-only rendering
-
-If your application does not use server-side rendering, use the exported `<RouteDispatcher>` component
-to render your application.
-
-```js
-import { RouterDispatcher } from 'react-router-dispatcher';
-
-// render your app
-
-```
-
-### Defining actions
-
->You **must define actions on route components** (components that are assigned directly to react-router-config style routes)
-
-An action is simply a **static method** defined on a component. Its _recommended_ that you return a **Promise** from the static action method.
-
-```js
-export default class MyComponent extents React.Component {
-
-  static loadData = (match, helpers) => {
-    const {params, isExact, path, url} = match; // match from react-router
-    return Promise.resolve(helpers.api.loadData(params.id));
-  };
-
-  // ...render, etc.
+  render() {
+    <Html metadata={metadata}>
+      This is the HTML body content
+    </Html>
+  }
 }
 ```
 
-The same can be achieved using stateless components
+For a **more detailed example**, look at the [example project, you can clone and run it](https://github.com/adam-26/react-html-metadata/master/examples/ssr)
+
+### Accessing the Metadata context
 
 ```js
-const MyComponent = (props) => {
-	// render here
-};
+import { withMetadata } from 'react-html-metadata';
 
-MyComponent.loadData = (match, helpers) => {
-	return Promise.resolve(helpers.api.loadData(match.params.id));
-};
+class DemoMd extends React.Component {
+
+  static propTypes = {
+    metadata: PropTypes.object
+  };
+
+  render() {
+    // ...
+  }
+}
+
+export default withMetadata()(DemoMd)
+
 ```
 
-### Configuration options
+**IMPORTANT**: Any component accessing the metadata context **must** be a child component of the `<Html>` component.
 
-`dispatchActions`:
-Configure the **static method(s)** defined any any _route component_ to invoke before rendering.
-Accepts:
-  * a string, the default is `loadData` - any component with a `static loadData = (match, helpers) => {}` will be invoked before rendering
-  * an array, `['loadData', 'parseData']` - all methods will be invoked in parallel before rendering
-  * nested array, `[['loadData'], ['parseData']]` - each inner array will be invoked serially (ie: `loadData` will be invoked on all components, before `parseData` is invoked on all components)
+### API
 
-`routeComponentPropNames`:
-Configure the **prop** names of _route components_ that are known to be react **components**
-The default value is `component`.
+#### `Html` component props:
 
-`helpers`:
-Any value can be assigned to helpers, the value is passed to all `static action methods`, common usages include passing api clients and application state (such as a redux store)
+##### `metadata`
+Optional, must be an instance of `Metadata`
 
-### RouteDispatcher Props
->All configuration options can be assigned as props
+##### `render`
+Optional, a function `(metadata, props) => {}` for custom rendering
 
-`loadingComponent`:
-If server-side rendering is **not** used, a _loading component_ will be displayed to the user when dispatching actions on initial load. Pass a component to customize the loading UI.
+##### `children`
+Optional, content rendered **inside** of the `<body>` tag.
 
-`render`:
-Allows the render method to be customized, you **must** invoke the react-router `renderRoutes` method within the render method.
+#### `Metadata`:
+
+##### `Metadata.createNew(/* optional - metadata object */)`
+A factory function that creates a new metadata instance, optionally accepting metadata configuration.
+
+##### `Metadata.createForHydration(metadataState)`
+A factory function that creates a new metadata instance for client hydration, expects the server generated metadata state.
+
+##### Metadata properties
+_These are all from [react-helmet](https://github.com/nfl/react-helmet)_
+
+  * bodyAttributes: `Object`
+  * htmlAttributes: `Object`
+  * titleAttributes: `Object`
+
+  * title: `string`
+  * titleTemplate: `string`
+
+  * base: `Array<Object>`
+  * link: `Array<Object>`
+  * meta: `Array<Object>`
+  * noscript: `Array<Object>`
+  * script: `Array<Object>`
+  * style: `Array<Object>`
+
+
+#### `withMetadata(metadataPropName?: string)`:
+
+A **HOC** for accessing `Metadata` on the context.
+Accepts an optional param that defines the prop name the metadata will be assigned to.
+
+_See above for an example_
+
+
+### Utilities
+
+The following components can be used to customize rendering of the component. View the source for details.
+
+#### `HtmlTag`
+#### `HeadTag`
+#### `BodyTag`
+
+
+### Example
+
+There is an example project at `/examples/ssr`.
+
+If you are modifying this package and want changes to apply when running the included example, after making
+changes you'll need to run the following command:
+
+```sh
+npm run build
+```
 
 ### Contribute
-For questions or issues, please [open an issue](https://github.com/adam-26/react-router-dispatcher/issues), and you're welcome to submit a PR for bug fixes and feature requests.
+For questions or issues, please [open an issue](https://github.com/adam-26/react-html-metadata/issues), and you're welcome to submit a PR for bug fixes and feature requests.
 
 Before submitting a PR, ensure you run `npm test` to verify that your coe adheres to the configured lint rules and passes all tests. Be sure to include unit tests for any code changes or additions.
 
