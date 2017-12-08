@@ -121,12 +121,12 @@ export default class Metadata {
             this._metadataList.splice(index, 1);
         }
 
-        // TODO *******************************************
-        // TODO   Add support to DIFF the previous/new
-        // TODO   metadata, to determine exactly what
-        // TODO   needs to be removed. This should retain
-        // TODO   any metadata NOT set using html-metadata
-        // TODO *******************************************
+        //  *******************************************
+        // TODO  Add support to DIFF the previous/new
+        //   metadata, to determine exactly what
+        //   needs to be removed. This should retain
+        //   any metadata NOT set using html-metadata
+        // *******************************************
 
         // Update the metadata in the HTML document
         this.appendMetadata(newMetadata);
