@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import Html from '../Html';
 import Metadata from '../Metadata';
 import withMetadata from '../withMetadata';
+import { mount } from './enzyme';
 
 class TestComponent extends React.Component {
     static propTypes = {
@@ -17,6 +18,16 @@ class TestComponent extends React.Component {
 
 describe('withMetadata', () => {
     test('assigns metadata prop to Component', () => {
+        const MdComponent = withMetadata()(TestComponent);
+        const md = Metadata.createNew({
+            title: 'Hello'
+        });
+
+        const html = mount(<Html metadata={md}><MdComponent /></Html>).html();
+        expect(html).toBe('<html><head><title>Hello</title></head><body>Hello</body></html>');
+    });
+
+    test('renders static metadata', () => {
         const MdComponent = withMetadata()(TestComponent);
         const md = Metadata.createNew({
             title: 'Hello'
