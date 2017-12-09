@@ -6,7 +6,9 @@ import getDisplayName from 'react-display-name';
 import PropTypes from 'prop-types';
 import { METADATA_CONTEXT_KEY } from './Html';
 
-function withMetadata(metadataPropName?: string = 'metadata') {
+export const METADATA_ACTION_PARAM_NAME = 'metadata';
+
+function withMetadata(metadataPropName?: string = METADATA_ACTION_PARAM_NAME) {
     invariant(typeof metadataPropName === 'string', 'withMetadata() expects the metadataPropName to be a string. You may be incorrectly invoking withMetadata, correct invocation is \'withMetadata()(Component)\'.');
 
     return (Component) => {

@@ -32,7 +32,14 @@ if you include any metadata in the render that does not use [react-cap](https://
 
 ```js
 // Complete list of exports
-import Html, { Metadata, withMetadata, HtmlTag, HeadTag, BodyTag } from 'react-html-metadata';
+import Html, {
+  Metadata,
+  withMetadata,
+  HtmlTag,
+  HeadTag,
+  BodyTag,
+  METADATA_ACTION_PARAM_NAME
+} from 'react-html-metadata';
 
 const metadata = Metadata.createNew({
   title: 'Html Metadata Demo',
