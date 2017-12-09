@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/adam-26/react-html-metadata/compare/v1.0.4...v1.0.5) (2017-12-09)
+
+
+### Bug Fixes
+
+* **render:** props ([6600912](https://github.com/adam-26/react-html-metadata/commit/6600912))
+* **render:** props  ([#9](https://github.com/adam-26/react-html-metadata/issues/9)) ([41f7946](https://github.com/adam-26/react-html-metadata/commit/41f7946))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/adam-26/react-html-metadata/compare/v1.0.3...v1.0.4) (2017-12-09)
 
