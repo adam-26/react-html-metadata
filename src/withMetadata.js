@@ -19,7 +19,7 @@ function withMetadata(metadataPropName?: string = METADATA_ACTION_PARAM_NAME) {
 
             render() {
                 const { htmlMetadata } = this.context;
-                const props = { [metadataPropName]: htmlMetadata };
+                const props = { ...this.props, [metadataPropName]: htmlMetadata };
                 return <Component { ...props } />;
             }
         }
