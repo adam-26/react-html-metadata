@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/adam-26/react-html-metadata/compare/v1.0.3...v1.0.4) (2017-12-09)
+
+
+### Bug Fixes
+
+* **export:** Metadata prop name ([7eba17e](https://github.com/adam-26/react-html-metadata/commit/7eba17e))
+* **export:** Metadata prop name ([6b775e8](https://github.com/adam-26/react-html-metadata/commit/6b775e8))
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/adam-26/react-html-metadata/compare/v1.0.2...v1.0.3) (2017-12-08)
 
