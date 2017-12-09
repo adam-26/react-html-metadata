@@ -12,21 +12,20 @@ function withMetadata(metadataPropName?: string = METADATA_ACTION_PARAM_NAME) {
     invariant(typeof metadataPropName === 'string', 'withMetadata() expects the metadataPropName to be a string. You may be incorrectly invoking withMetadata, correct invocation is \'withMetadata()(Component)\'.');
 
     return (Component) => {
-        class MetadataHOC extends Component {
-            static contextTypes = {
-                [METADATA_CONTEXT_KEY]: PropTypes.object
-            };
+        const HOC = (props, { htmlMetadata }) => {
+            const componentProps = { ...props, [metadataPropName]: htmlMetadata };
+            return <Component { ...componentProps } />;
+        };
 
-            render() {
-                const { htmlMetadata } = this.context;
-                const props = { ...this.props, [metadataPropName]: htmlMetadata };
-                return <Component { ...props } />;
-            }
-        }
+        HOC.WrappedComponent = Component;
 
-        MetadataHOC.displayName = `withMetadata(${getDisplayName(Component)})`;
+        HOC.contextTypes = {
+            [METADATA_CONTEXT_KEY]: PropTypes.object
+        };
 
-        return hoistNonReactStatic(MetadataHOC, Component);
+        HOC.displayName = `withMetadata(${getDisplayName(Component)})`;
+
+        return hoistNonReactStatic(HOC, Component);
     };
 }
 
