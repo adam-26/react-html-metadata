@@ -1,8 +1,5 @@
 # SSR HTML metadata example
 
-TODO: create-react-app, apply 'data-ignore-metadata' attr to <style> tags from babel plugin(s)/loader(s)
-TODO  -> will need to use 'npm run eject' to achieve this, therefore BRANCH first.
-
 An example using SSR Html metadata.
 
 ## Setup
