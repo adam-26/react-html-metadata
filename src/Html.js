@@ -14,6 +14,7 @@ export default class Html extends Component {
     static propTypes = {
         metadata: PropTypes.object,
         render: PropTypes.func,
+        lastChild: PropTypes.node,
         children: PropTypes.oneOfType([
             PropTypes.node,
             PropTypes.arrayOf(PropTypes.node)
@@ -21,18 +22,21 @@ export default class Html extends Component {
     };
 
     static defaultProps = {
+        lastChild: null,
+
         /**
          * Custom render method allows caching of the <head> data.
          * @param metadata
          * @param props
          */
         render: (metadata, props) => {
-            const { children } = props;
+            const { lastChild, children } = props;
             return (
                 <HtmlTag metadata={metadata}>
                     <HeadTag metadata={metadata} />
                     <BodyTag metadata={metadata}>
                         {children}
+                        {lastChild}
                     </BodyTag>
                 </HtmlTag>
             );

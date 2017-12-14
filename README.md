@@ -56,14 +56,14 @@ const metadata = Metadata.createNew({
 class DemoApp extends React.Component {
 
   render() {
-    <Html metadata={metadata}>
+    <Html metadata={metadata} lastChild="This is rendered after the content">
       This is the HTML body content
     </Html>
   }
 }
 ```
 
-For a **more detailed example**, look at the [example project, you can clone and run it](https://github.com/adam-26/react-html-metadata/master/examples/ssr)
+For a **more detailed example**, look at the [example project, you can clone and run it](https://github.com/adam-26/react-html-metadata/tree/master/examples/ssr)
 
 ### Accessing the Metadata context
 
@@ -93,6 +93,12 @@ export default withMetadata()(DemoMd)
 
 ##### `metadata`
 Optional, must be an instance of `Metadata`
+
+##### `lastChild`
+Optional, a React node, anything that can be rendered
+This can be used to **serialize data** before _closing_ the `</body>` tag, you could:
+  * serialize application state
+  * serialize a redux store
 
 ##### `render`
 Optional, a function `(metadata, props) => {}` for custom rendering
