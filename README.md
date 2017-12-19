@@ -38,7 +38,7 @@ import Html, {
   HtmlTag,
   HeadTag,
   BodyTag,
-  METADATA_ACTION_PARAM_NAME
+  METADATA_PROP_NAME
 } from 'react-html-metadata';
 
 const metadata = Metadata.createNew({
