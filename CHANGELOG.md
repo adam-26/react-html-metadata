@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/adam-26/react-html-metadata/compare/v1.1.0...v1.2.0) (2017-12-19)
+
+
+### Features
+
+* **const:** Internal Name ([c94aec0](https://github.com/adam-26/react-html-metadata/commit/c94aec0))
+* **const:** Internal Name ([#12](https://github.com/adam-26/react-html-metadata/issues/12)) ([8faffd9](https://github.com/adam-26/react-html-metadata/commit/8faffd9))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/adam-26/react-html-metadata/compare/v1.0.6...v1.1.0) (2017-12-14)
 
