@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/adam-26/react-html-metadata/compare/v1.2.0...v1.3.0) (2018-01-16)
+
+
+### Features
+
+* **code:** remove hydrated metadata ([1912a68](https://github.com/adam-26/react-html-metadata/commit/1912a68))
+* **code:** remove hydrated metadata ([#14](https://github.com/adam-26/react-html-metadata/issues/14)) ([294a690](https://github.com/adam-26/react-html-metadata/commit/294a690))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/adam-26/react-html-metadata/compare/v1.1.0...v1.2.0) (2017-12-19)
 
