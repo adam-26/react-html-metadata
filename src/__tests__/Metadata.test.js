@@ -74,7 +74,7 @@ describe('Metadata', () => {
             expect(md.updateMetadata.mock.calls).toHaveLength(1);
         });
 
-        test('removes appended metadata when hydrating client', () => {
+        test('removes hydrated metadata after hydrating client', () => {
             const initialState = { title: 'hello' };
             const md = new Metadata(true, [initialState]);
             md.updateMetadata = jest.fn();
@@ -87,7 +87,7 @@ describe('Metadata', () => {
 
             expect(md._hydrationMark).toBe(-1); // reset
             expect(md.getState()).toHaveLength(1);
-            expect(md.getState()[0].title).toBe('hello');
+            expect(md.getState()[0].title).toBe('world');
             expect(md.updateMetadata.mock.calls).toHaveLength(1);
         });
     });

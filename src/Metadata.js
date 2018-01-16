@@ -49,7 +49,6 @@ export default class Metadata {
 
         this._isHydratingClient = isHydrating;
         this._metadataList = state.slice();
-        // this._baseMetadataIdx = 0;
         this._hydrationMark = -1;
     }
 
@@ -78,7 +77,7 @@ export default class Metadata {
 
             if (this._hydrationMark > 0) {
                 // Delete any hydrated metadata entries after the initial render is complete
-                this._metadataList.splice(this._hydrationMark, this._metadataList.length - this._hydrationMark);
+                this._metadataList.splice(0, this._hydrationMark);
             }
 
             // update the metadata - this should resolve to the initial server render
@@ -88,6 +87,10 @@ export default class Metadata {
     }
 
     appendMetadata(metadata) {
+        if (metadata === null) {
+            return;
+        }
+
         this._metadataList.push(metadata);
     }
 
@@ -116,9 +119,11 @@ export default class Metadata {
         }
 
         // Remove the previous metadata
-        const index = this._metadataList.indexOf(previousMetadata);
-        if (index !== -1) {
-            this._metadataList.splice(index, 1);
+        if (previousMetadata !== null) {
+            const index = this._metadataList.indexOf(previousMetadata);
+            if (index !== -1) {
+                this._metadataList.splice(index, 1);
+            }
         }
 
         //  *******************************************
@@ -130,7 +135,10 @@ export default class Metadata {
 
         // Update the metadata in the HTML document
         this.appendMetadata(newMetadata);
-        this.updateMetadata();
+
+        if (previousMetadata !== newMetadata) {
+            this.updateMetadata();
+        }
     }
 
     isHydratingClient(): boolean {
