@@ -4,7 +4,8 @@ import invariant from 'invariant';
 import {
     reducePropsToState,
     handleClientStateChange,
-    mapStateToComponents
+    mapStateToComponents,
+    deepEqual
 } from 'react-cap/lib/CapUtils';
 
 export default class Metadata {
@@ -109,6 +110,11 @@ export default class Metadata {
     update(previousMetadata, newMetadata) {
         if (this.isServerRender()) {
             // don't update on initial client render or on the server render.
+            return;
+        }
+
+        if (deepEqual(previousMetadata, newMetadata)) {
+            // Nothing to update
             return;
         }
 
