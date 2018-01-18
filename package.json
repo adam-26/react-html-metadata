@@ -63,7 +63,7 @@
     "exenv": "^1.2.2",
     "hoist-non-react-statics": "^2.3.1",
     "invariant": "^2.2.2",
-    "react-cap": "^5.3.0",
+    "react-cap": "^5.3.1",
     "react-display-name": "^0.2.3"
   },
   "jest": {
