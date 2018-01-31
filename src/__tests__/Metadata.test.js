@@ -124,4 +124,18 @@ describe('Metadata', () => {
             expect(md.updateMetadata.mock.calls).toHaveLength(1);
         });
     });
+
+    describe('onChange', () => {
+        test('subscribers are notified of change events', () => {
+            const md = new Metadata(false, []);
+            const mockCb = jest.fn();
+            const unsubscribe = md.onChange(mockCb);
+
+            md.updateMetadata();
+            expect(mockCb.mock.calls).toHaveLength(1);
+
+            unsubscribe();
+            expect(md._onChangeSubscribers).toHaveLength(0);
+        });
+    });
 });

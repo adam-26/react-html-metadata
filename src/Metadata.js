@@ -3,7 +3,6 @@ import ExecutionEnvironment from 'exenv';
 import invariant from 'invariant';
 import {
     reducePropsToState,
-    handleClientStateChange,
     mapStateToComponents,
     deepEqual
 } from 'react-cap/lib/CapUtils';
@@ -51,6 +50,7 @@ export default class Metadata {
         this._isHydratingClient = isHydrating;
         this._metadataList = state.slice();
         this._hydrationMark = -1;
+        this._onChangeSubscribers = [];
     }
 
     /**
@@ -104,7 +104,8 @@ export default class Metadata {
     }
 
     updateMetadata() {
-        handleClientStateChange(this.getHelmetState());
+        const self = this;
+        self._onChangeSubscribers.forEach(subscriber => subscriber(self));
     }
 
     update(previousMetadata, newMetadata) {
@@ -145,6 +146,24 @@ export default class Metadata {
         if (previousMetadata !== newMetadata) {
             this.updateMetadata();
         }
+    }
+
+    /**
+     * Subscribe to be notified when metadata changes. Be sure to unsubscribe to prevent memory leaks.
+     *
+     * @param callback
+     * @returns {unsubscribe}
+     */
+    onChange(callback): () => void {
+        const self = this;
+        self._onChangeSubscribers.push(callback);
+
+        return function unsubscribe() {
+            const idx = self._onChangeSubscribers.indexOf(callback);
+            if (idx > -1) {
+                self._onChangeSubscribers.splice(idx, 1);
+            }
+        };
     }
 
     isHydratingClient(): boolean {
