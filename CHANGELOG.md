@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/adam-26/react-html-metadata/compare/v1.4.0...v1.4.1) (2018-01-31)
+
+
+### Bug Fixes
+
+* **code:** tags shouldComponentUpdate ([0a9e9c5](https://github.com/adam-26/react-html-metadata/commit/0a9e9c5))
+* **code:** tags shouldComponentUpdate  ([#17](https://github.com/adam-26/react-html-metadata/issues/17)) ([decfda4](https://github.com/adam-26/react-html-metadata/commit/decfda4))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/adam-26/react-html-metadata/compare/v1.3.1...v1.4.0) (2018-01-31)
 
