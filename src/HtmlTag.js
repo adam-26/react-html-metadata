@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { deepEqual } from 'react-cap/lib/CapUtils';
 
 function getHtmlAttrs(props) {
     if (props.htmlAttributes) {
@@ -27,10 +26,6 @@ export default class HtmlTag extends Component {
     static defaultProps = {
         htmlAttributes: {}
     };
-
-    shouldComponentUpdate(nextProps) {
-        return !deepEqual(getHtmlAttrs(this.props), getHtmlAttrs(nextProps));
-    }
 
     render() {
         const htmlAttributes = getHtmlAttrs(this.props);
