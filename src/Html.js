@@ -31,10 +31,11 @@ export default class Html extends Component {
          */
         render: (metadata, props) => {
             const { lastChild, children } = props;
+            const { htmlAttributes, bodyAttributes, ...headMetadata } = metadata;
             return (
-                <HtmlTag metadata={metadata}>
-                    <HeadTag metadata={metadata} />
-                    <BodyTag metadata={metadata}>
+                <HtmlTag htmlAttributes={htmlAttributes}>
+                    <HeadTag metadata={headMetadata} />
+                    <BodyTag bodyAttributes={bodyAttributes}>
                         {children}
                         {lastChild}
                     </BodyTag>
@@ -55,7 +56,16 @@ export default class Html extends Component {
             metadata.markHydrated();
         }
 
-        this.state = { metadata: metadata || Metadata.createNew() };
+        const self = this;
+        const mdInstance = metadata || Metadata.createNew();
+        const unsubscribe = mdInstance.onChange(function notify() {
+            self.setState({ metadata: mdInstance });
+        });
+
+        self.state = {
+            metadata: mdInstance,
+            unsubscribe: unsubscribe
+        };
     }
 
     getChildContext() {
@@ -66,6 +76,10 @@ export default class Html extends Component {
 
     componentDidMount() {
         this.state.metadata.isMounted();
+    }
+
+    componentWillUnmount() {
+        this.state.unsubscribe();
     }
 
     render() {

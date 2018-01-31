@@ -57,6 +57,7 @@ describe('Html', () => {
                bodyAttributes: { class: 'root' },
                title: 'Hello'
             });
+
             const html = renderToStaticMarkup(<Html metadata={md}>content</Html>);
             expect(html).toBe('<html lang="en"><head><title>Hello</title></head><body class="root">content</body></html>');
         });

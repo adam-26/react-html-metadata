@@ -1,18 +1,39 @@
 // @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { deepEqual } from 'react-cap/lib/CapUtils';
+
+function getHtmlAttrs(props) {
+    if (props.htmlAttributes) {
+        return props.htmlAttributes;
+    }
+
+    if (props.metadata) {
+// eslint-disable-next-line no-console
+        console.warn('HtmlTag expects a "htmlAttributes" property, not "metadata". This will be deprecated in a future version.');
+        return props.metadata.htmlAttributes;
+    }
+}
 
 export default class HtmlTag extends Component {
     static propTypes = {
-        metadata: PropTypes.object,
+        htmlAttributes: PropTypes.object,
         children: PropTypes.oneOfType([
             PropTypes.node,
             PropTypes.arrayOf(PropTypes.node)
         ]).isRequired
     };
 
+    static defaultProps = {
+        htmlAttributes: {}
+    };
+
+    shouldComponentUpdate(nextProps) {
+        return !deepEqual(getHtmlAttrs(this.props), getHtmlAttrs(nextProps));
+    }
+
     render() {
-        const { children, metadata: { htmlAttributes } } = this.props;
-        return <html {...htmlAttributes}>{children}</html>;
+        const htmlAttributes = getHtmlAttrs(this.props);
+        return <html {...htmlAttributes}>{this.props.children}</html>;
     }
 }
