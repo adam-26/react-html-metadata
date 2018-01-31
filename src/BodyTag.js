@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { deepEqual } from 'react-cap/lib/CapUtils';
 
 function getBodyAttrs(props) {
     if (props.bodyAttributes) {
@@ -23,11 +22,6 @@ export default class BodyTag extends Component {
             PropTypes.arrayOf(PropTypes.node)
         ]).isRequired
     };
-
-    shouldComponentUpdate(nextProps) {
-        return this.props.children !== nextProps.children ||
-            !deepEqual(getBodyAttrs(this.props), getBodyAttrs(nextProps));
-    }
 
     render() {
         const bodyAttributes = getBodyAttrs(this.props);
