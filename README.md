@@ -14,6 +14,17 @@ In isolation, this package is rather boring. However, this package provides the 
 
 You can see [one example of using **react-router v4 with streams and metadata** here](https://github.com/adam-26/react-router-metadata).
 
+Internally, this package uses a slightly modified version of the excellent [react-helmet](https://github.com/nfl/react-helmet)
+to apply metadata. The modified version is [react-cap](https://github.com/adam-26/react-cap), and it differs in that
+it **does not use _data-react-helmet_ attributes**, instead it utilizes the _React lifecycle_ to render metadata.
+
+This provides 2 benefits over [react-helmet](https://github.com/nfl/react-helmet):
+ 1. No `data-react-helmet` attributes
+ 2. It displays correctly in **react dev-tools**.
+
+#### Future Enhancements
+ * [Add support for SSR](https://github.com/adam-26/react-html-metadata/issues/18)
+
 ### Install
 ```sh
 // npm
@@ -22,11 +33,6 @@ npm install --save react-html-metadata
 // yarn
 yarn add react-html-metadata
 ```
-
-Internally, this package uses a slightly modified version of the excellent [react-helmet](https://github.com/nfl/react-helmet)
-to apply metadata. The modified version is [react-cap](https://github.com/adam-26/react-cap), and it differs in that
-it **does not use _data-react-helmet_ attributes**, instead it requires you to apply a `data-ignore-metadata` attribute
-if you include any metadata in the render that does not use [react-cap](https://github.com/adam-26/react-cap).
 
 ### Usage
 
