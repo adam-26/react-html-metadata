@@ -131,6 +131,9 @@ _These are all from [react-helmet](https://github.com/nfl/react-helmet)_
   * script: `Array<Object>`
   * style: `Array<Object>`
 
+  * persist: `boolean`:
+    * True to persist the metadata, once added it will never be removed.
+
 
 #### `withMetadata(metadataPropName?: string)`:
 
