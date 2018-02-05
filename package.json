@@ -1,6 +1,6 @@
 {
   "name": "react-html-metadata",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "react HTML document template supporting metadata",
   "main": "lib/index.js",
   "engines": {
