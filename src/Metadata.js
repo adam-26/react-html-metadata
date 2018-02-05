@@ -1,6 +1,7 @@
 // @flow
 import ExecutionEnvironment from 'exenv';
 import invariant from 'invariant';
+import ScriptTag from 'react-script-tag';
 import {
     reducePropsToState,
     mapStateToComponents,
@@ -100,7 +101,17 @@ export default class Metadata {
     }
 
     getComponents() {
-        return mapStateToComponents(this.getHelmetState());
+        return mapStateToComponents({
+            ...this.getHelmetState(),
+            typeComponents: {
+                script: {
+                    component: ScriptTag,
+                    props: {
+                        isHydrating: this._isHydratingClient
+                    }
+                }
+            }
+        });
     }
 
     updateMetadata() {
