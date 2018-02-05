@@ -130,6 +130,21 @@ export default class Metadata {
             return;
         }
 
+        // Support persisting metadata, so its NEVER removed
+        if (newMetadata && newMetadata.persist === true) {
+            for (let i = 0, len = this._metadataList.length; i < len; i++) {
+                const item = this._metadataList[i];
+                if (item.persist !== true) {
+                    continue;
+                }
+
+                if (deepEqual(item, newMetadata)) {
+                    // Metadata already exists
+                    return;
+                }
+            }
+        }
+
         if (this.isHydratingClient()) {
             // append the metadata - will be applied once initial render is complete
             this.appendMetadata(newMetadata);
@@ -140,7 +155,10 @@ export default class Metadata {
         if (previousMetadata !== null) {
             const index = this._metadataList.indexOf(previousMetadata);
             if (index !== -1) {
-                this._metadataList.splice(index, 1);
+                // Prevent persisted metadata from being removed
+                if (this._metadataList[index].persist !== true) {
+                    this._metadataList.splice(index, 1);
+                }
             }
         }
 
