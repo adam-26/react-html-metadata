@@ -8,6 +8,8 @@ import {
     deepEqual
 } from 'react-cap/lib/CapUtils';
 
+const IS_DEV = process.env.NODE_ENV !== 'production';
+
 export default class Metadata {
     _metadataList: Array<Object>;
     _isHydratingClient: boolean;
@@ -119,15 +121,22 @@ export default class Metadata {
         self._onChangeSubscribers.forEach(subscriber => subscriber(self));
     }
 
+    /**
+     * Updates the current metadata state
+     *
+     * @param previousMetadata will be removed if different from the new metadata
+     * @param newMetadata will be appended if its non null
+     * @returns {*} the applied metadata instance
+     */
     update(previousMetadata, newMetadata) {
         if (this.isServerRender()) {
             // don't update on initial client render or on the server render.
-            return;
+            return null;
         }
 
         if (deepEqual(previousMetadata, newMetadata)) {
             // Nothing to update
-            return;
+            return previousMetadata;
         }
 
         // Support persisting metadata, so its NEVER removed
@@ -140,7 +149,7 @@ export default class Metadata {
 
                 if (deepEqual(item, newMetadata)) {
                     // Metadata already exists
-                    return;
+                    return previousMetadata;
                 }
             }
         }
@@ -148,7 +157,7 @@ export default class Metadata {
         if (this.isHydratingClient()) {
             // append the metadata - will be applied once initial render is complete
             this.appendMetadata(newMetadata);
-            return;
+            return newMetadata;
         }
 
         // Remove the previous metadata
@@ -160,21 +169,16 @@ export default class Metadata {
                     this._metadataList.splice(index, 1);
                 }
             }
+            else if (IS_DEV) {
+                // eslint-disable-next-line no-console
+                console.warn(`Failed to remove HTML metadata item at index ${index}.`);
+            }
         }
-
-        //  *******************************************
-        // TODO  Add support to DIFF the previous/new
-        //   metadata, to determine exactly what
-        //   needs to be removed. This should retain
-        //   any metadata NOT set using html-metadata
-        // *******************************************
 
         // Update the metadata in the HTML document
         this.appendMetadata(newMetadata);
-
-        if (previousMetadata !== newMetadata) {
-            this.updateMetadata();
-        }
+        this.updateMetadata();
+        return newMetadata;
     }
 
     /**
