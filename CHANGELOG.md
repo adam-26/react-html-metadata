@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/adam-26/react-html-metadata/compare/v1.5.3...v1.6.0) (2018-03-02)
+
+
+### Features
+
+* **api:** Add SSR stream actor ([b3d3112](https://github.com/adam-26/react-html-metadata/commit/b3d3112))
+* **api:** Add SSR stream ctor ([#23](https://github.com/adam-26/react-html-metadata/issues/23)) ([36db579](https://github.com/adam-26/react-html-metadata/commit/36db579))
+
+
+
 <a name="1.5.3"></a>
 ## [1.5.3](https://github.com/adam-26/react-html-metadata/compare/v1.5.2...v1.5.3) (2018-02-11)
 
