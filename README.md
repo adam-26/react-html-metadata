@@ -120,6 +120,9 @@ A factory function that creates a new metadata instance, optionally accepting me
 ##### `Metadata.createForHydration(metadataState)`
 A factory function that creates a new metadata instance for client hydration, expects the server generated metadata state.
 
+##### `Metadata.createForServerStreamRender(metadataState)`
+A factory function that creates a new metadata instance for SSR stream rendering, optionally accepting metadata state.
+
 ##### Metadata properties
 _These are all from [react-helmet](https://github.com/nfl/react-helmet)_
 

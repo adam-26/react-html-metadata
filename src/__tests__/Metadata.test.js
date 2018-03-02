@@ -4,14 +4,25 @@ describe('Metadata', () => {
     describe('constructor', () => {
         test('assigns parameters', () => {
             const state = [];
-            const md = new Metadata(true, state);
+            const md = new Metadata(true, false, state);
 
             expect(md.isHydratingClient()).toBe(true);
             expect(md.getState()).toHaveLength(state.length);
         });
 
         test('throws if state is not an array', () => {
-           expect(() => new Metadata(true, {})).toThrow();
+           expect(() => new Metadata(true, false, {})).toThrow();
+        });
+
+        test('createForServerStreamRender', () => {
+            Metadata.canUseDOM = false;
+            const md = Metadata.createForServerStreamRender();
+
+            expect(md.getState()).toHaveLength(0);
+            expect(md.isServerStreamRender()).toBe(true);
+
+            Metadata.canUseDOM = true;
+            expect(md.isServerStreamRender()).toBe(false);
         });
     });
 
@@ -19,7 +30,7 @@ describe('Metadata', () => {
         test('returns internal state', () => {
             const stateEntry = { title: 'hello' };
             const state = [stateEntry];
-            const md = new Metadata(true, state);
+            const md = new Metadata(true, false, state);
 
             expect(md.getState()[0]).toEqual(stateEntry);
         });
@@ -27,21 +38,21 @@ describe('Metadata', () => {
 
     describe('markHydrated', () => {
         test('does not set flag when state is empty', () => {
-            const md = new Metadata(true, []);
+            const md = new Metadata(true, false, []);
             md.markHydrated();
 
             expect(md._hydrationMark).toBe(-1);
         });
 
         test('sets flag zero when no metadata appended after ctor', () => {
-            const md = new Metadata(true, [{ title: 'hello' }]);
+            const md = new Metadata(true, false, [{ title: 'hello' }]);
             md.markHydrated();
 
             expect(md._hydrationMark).toBe(1);
         });
 
         test('does not set flag when flag previously set', () => {
-            const md = new Metadata(true, [{ title: 'hello' }]);
+            const md = new Metadata(true, false, [{ title: 'hello' }]);
             md.appendMetadata({ title: 'world' });
             md.markHydrated();
 
@@ -55,7 +66,7 @@ describe('Metadata', () => {
 
     describe('isMounted', () => {
         test('does not update metadata when not hydrating the client', () => {
-            const md = new Metadata(false, []);
+            const md = new Metadata(false, false, []);
             md.updateMetadata = jest.fn();
 
             md.isMounted();
@@ -64,7 +75,7 @@ describe('Metadata', () => {
         });
 
         test('does not remove appended metadata when none has been appended', () => {
-            const md = new Metadata(true, []);
+            const md = new Metadata(true, false, []);
             md.updateMetadata = jest.fn();
 
             expect(md._hydrationMark).toBe(-1);
@@ -76,7 +87,7 @@ describe('Metadata', () => {
 
         test('removes hydrated metadata after hydrating client', () => {
             const initialState = { title: 'hello' };
-            const md = new Metadata(true, [initialState]);
+            const md = new Metadata(true, false, [initialState]);
             md.updateMetadata = jest.fn();
 
             md.markHydrated(); // flag as hydrating
@@ -95,7 +106,7 @@ describe('Metadata', () => {
     describe('update', () => {
         test('does nothing on server render', () => {
             Metadata.canUseDOM = false;
-            const md = new Metadata(false, []);
+            const md = new Metadata(false, false, []);
 
             expect(md.getState()).toHaveLength(0);
             md.update({}, {});
@@ -105,7 +116,7 @@ describe('Metadata', () => {
         });
 
         test('appends metadata on client hydration', () => {
-            const md = new Metadata(true, []);
+            const md = new Metadata(true, false, []);
             const newMd = { title: 'hello' };
             md.update({}, newMd);
 
@@ -115,7 +126,7 @@ describe('Metadata', () => {
         test('removes previous metadata on client render', () => {
             const oldMd = { title: 'hello' };
             const newMd = { title: 'world' };
-            const md = new Metadata(false, [oldMd]);
+            const md = new Metadata(false, false, [oldMd]);
             md.updateMetadata = jest.fn();
 
             md.update(oldMd, newMd);
@@ -127,7 +138,7 @@ describe('Metadata', () => {
 
     describe('onChange', () => {
         test('subscribers are notified of change events', () => {
-            const md = new Metadata(false, []);
+            const md = new Metadata(false, false, []);
             const mockCb = jest.fn();
             const unsubscribe = md.onChange(mockCb);
 

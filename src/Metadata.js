@@ -25,7 +25,7 @@ export default class Metadata {
      * @public
      */
     static createNew(md?: Object) {
-        return new Metadata(false, typeof md !== 'undefined' ? [md] : []);
+        return new Metadata(false, false, typeof md !== 'undefined' ? [md] : []);
     }
 
     /**
@@ -35,22 +35,34 @@ export default class Metadata {
      * @public
      */
     static createForHydration(state?: Array<Object>) {
-        return new Metadata(true, state);
+        return new Metadata(true, false, state);
+    }
+
+    /**
+     * Create a new metadata instance to load metadata before the react render lifecycle for SSR with streams.
+     * @param state
+     * @returns {Metadata}
+     * @public
+     */
+    static createForServerStreamRender(state?: Array<Object>) {
+        return new Metadata(false, true, state);
     }
 
     /**
      * Creates a new Metadata instance.
      *
      * @param isHydrating
+     * @param isServerStreamRender
      * @param state
      * @private
      */
-    constructor(isHydrating: boolean, state?: Array<Object> = []) {
+    constructor(isHydrating: boolean, isServerStreamRender: boolean, state?: Array<Object> = []) {
         if (typeof state !== 'undefined') {
             invariant(Array.isArray(state), 'Metadata expects the optional state parameter to be an array.');
         }
 
         this._isHydratingClient = isHydrating;
+        this._isServerStreamRender = isServerStreamRender;
         this._metadataList = state.slice();
         this._hydrationMark = -1;
         this._onChangeSubscribers = [];
@@ -205,5 +217,9 @@ export default class Metadata {
 
     isServerRender(): boolean {
         return Metadata.canUseDOM !== true;
+    }
+
+    isServerStreamRender(): boolean {
+        return this._isServerStreamRender && this.isServerRender();
     }
 }
