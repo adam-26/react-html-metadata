@@ -3,8 +3,8 @@
 [![npm](https://img.shields.io/npm/v/react-html-metadata.svg)](https://www.npmjs.com/package/react-html-metadata)
 [![npm](https://img.shields.io/npm/dm/react-html-metadata.svg)](https://www.npmjs.com/package/react-html-metadata)
 [![CircleCI branch](https://img.shields.io/circleci/project/github/adam-26/react-html-metadata/master.svg)](https://circleci.com/gh/adam-26/react-html-metadata/tree/master)
-[![Code Climate](https://img.shields.io/codeclimate/coverage/github/adam-26/react-html-metadata.svg)](https://codeclimate.com/github/adam-26/react-html-metadata)
-[![Code Climate](https://img.shields.io/codeclimate/github/adam-26/react-html-metadata.svg)](https://codeclimate.com/github/adam-26/react-html-metadata)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e159e926827685bcbd1a/maintainability)](https://codeclimate.com/github/adam-26/react-html-metadata/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/e159e926827685bcbd1a/test_coverage)](https://codeclimate.com/github/adam-26/react-html-metadata/test_coverage)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 ### Introduction
